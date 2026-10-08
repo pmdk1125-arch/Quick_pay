@@ -1,0 +1,46 @@
+START
+    DECLARE balance AS DOUBLE = 1000.00
+    DECLARE choice AS INTEGER
+    DECLARE depositAmount AS DOUBLE
+    DECLARE statements AS LIST OF STRINGS = ["Initial balance: $1000.00"]
+
+    PRINT "Welcome to the Bank Application"
+    
+    WHILE TRUE
+        PRINT "\n1. Check Balance"
+        PRINT "2. Check Statements"
+        PRINT "3. Deposit"
+        PRINT "4. Exit"
+        PRINT "Enter your choice: "
+        INPUT choice
+
+        IF choice == 1 THEN
+            PRINT "Your current balance is: $" + balance
+
+        ELSE IF choice == 2 THEN
+            PRINT "--- Account Statements ---"
+            FOR EACH statement IN statements
+                PRINT statement
+            END FOR
+
+        ELSE IF choice == 3 THEN
+            PRINT "Enter amount to deposit: "
+            INPUT depositAmount
+            
+            IF depositAmount > 0 THEN
+                balance = balance + depositAmount
+                statements.ADD("Deposited: $" + depositAmount + " | New Balance: $" + balance)
+                PRINT "Deposit successful!"
+            ELSE
+                PRINT "Invalid amount. Deposit must be greater than 0."
+            END IF
+
+        ELSE IF choice == 4 THEN
+            PRINT "Thank you for using our bank. Goodbye!"
+            BREAK WHILE LOOP
+
+        ELSE
+            PRINT "Invalid choice. Please enter a number between 1 and 4."
+        END IF
+    END WHILE
+END
